@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
-import * as LucideIcons from "lucide-react";
-import type { LucideProps } from "lucide-react";
+import { icons } from "lucide-react";
 
 export interface IconProps {
   name: string;
@@ -9,11 +8,6 @@ export interface IconProps {
   color?: string;
   strokeWidth?: number;
 }
-
-// Get all available icon names for validation
-export const iconNames = Object.keys(LucideIcons).filter(
-  (key) => key !== "createLucideIcon" && key !== "default" && !key.startsWith("Lucide")
-);
 
 export function Icon({
   name,
@@ -29,7 +23,7 @@ export function Icon({
     .join("");
 
   // Get the icon component from Lucide
-  const IconComponent = (LucideIcons as Record<string, React.ComponentType<LucideProps>>)[pascalCaseName];
+  const IconComponent = icons[pascalCaseName as keyof typeof icons];
 
   if (!IconComponent) {
     console.warn(`Icon "${name}" not found in Lucide icons`);
